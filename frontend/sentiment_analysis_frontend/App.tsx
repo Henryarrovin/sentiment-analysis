@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textContainer: {
-    // padding: 3,
     alignItems: "center",
   },
   textDesign: {
