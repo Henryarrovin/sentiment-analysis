@@ -8,7 +8,7 @@ interface MyButtonProps {
 
 const MyButton: React.FC<MyButtonProps> = ({ title, onPress }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onPress}>
         <Text style={styles.buttonText}>{title}</Text>
       </TouchableOpacity>
@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  container: {
+    padding: 10,
   },
 });
 

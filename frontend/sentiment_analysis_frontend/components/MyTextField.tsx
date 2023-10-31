@@ -20,7 +20,7 @@ const MyTextField = ({ hintText, onChangeText }: MyTextFieldProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
+    padding: 10,
     justifyContent: "center",
     alignItems: "center",
   },
