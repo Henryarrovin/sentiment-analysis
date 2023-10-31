@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import AppBar from "./components/AppBar";
 import MyTextField from "./components/MyTextField";
 import { useState } from "react";
@@ -11,14 +11,35 @@ export default function App() {
 
   const handleButtonClick = async () => {
     try {
-      const response = await axios.post(
-        "http://10.0.2.2:5000/predict_sentiment",
-        {
-          text: text,
-        }
-      );
+      let url;
 
-      setSentiment(JSON.stringify(response.data.sentiment));
+      setSentiment("loading ...");
+
+      if (Platform.OS === "android") {
+        url = "http://10.0.2.2:5000/predict_sentiment";
+      } else if (Platform.OS === "web") {
+        url = "http://localhost:5000/predict_sentiment";
+      } else {
+        url = "";
+        setSentiment("Platform not supported");
+        return;
+      }
+      const response = await axios.post(url, {
+        text: text,
+      });
+
+      const sentimentValue = response.data.sentiment;
+
+      if (sentimentValue === "positive") {
+        setSentiment("Positive 😄");
+      } else if (sentimentValue === "neutral") {
+        setSentiment("Neutral 🙂");
+      } else if (sentimentValue === "negative") {
+        setSentiment("Negative 😠");
+      } else {
+        setSentiment("Error fetching sentiment");
+      }
+
       console.log(sentiment);
     } catch (error) {
       console.error("Error:", error);
